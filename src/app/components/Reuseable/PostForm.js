@@ -5,7 +5,7 @@ import { db, storage } from "@/app/firebase/firebaseConfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { MdLinkedCamera } from "react-icons/md";
-import { useRouter } from 'next/router';
+import Image from "next/image";
 
 const PostForm = ({ postCategory, formTitle }) => {
     const auth = getAuth();

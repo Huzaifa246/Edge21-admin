@@ -58,7 +58,7 @@ const Login = () => {
             />
           </div>
           <h1 className="text-3xl text-white my-4 font-bold">Welcome Back</h1>
-          <h6 className="text-md text-white mb-6">Let's get started by filling out form below</h6>
+          <h6 className="text-md text-white mb-6">Let&#39;s get started by filling out form below</h6>
 
           <div className="w-full mb-4">
             <div className="relative">
