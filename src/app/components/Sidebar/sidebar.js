@@ -7,7 +7,7 @@ import { FiMenu, FiX, FiTwitter, FiEdit } from 'react-icons/fi';
 import { FaUsers,FaWifi } from "react-icons/fa";
 import { MdArticle,MdVideoChat } from 'react-icons/md';
 import { FaChartArea } from "react-icons/fa6";
-
+import Image from "next/image";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState();
@@ -44,7 +44,9 @@ const Sidebar = () => {
         {/* Logo */}
         <div className="mb-8">
           <Link href="/all-posts">
-            <img src="/images/logo.png" alt="logo" className="pb-4" />
+            <Image src="/images/logo.png" alt="logo" className="pb-4"
+            width={100} height={100}
+            />
           </Link>
           <hr/>
         </div>

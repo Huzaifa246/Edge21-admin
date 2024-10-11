@@ -215,10 +215,12 @@ const PostForm = ({ postCategory, formTitle }) => {
 
                         {sourceImageFile && (
                             <div className="ml-3">
-                                <img
+                                <Image
                                     src={URL.createObjectURL(sourceImageFile)}
                                     alt="Source Image"
                                     className="w-12 h-12 object-cover rounded"
+                                    width={100}
+                                    height={100}
                                 />
                             </div>
                         )}
@@ -267,10 +269,12 @@ const PostForm = ({ postCategory, formTitle }) => {
 
                         {postPhotoFile && (
                             <div className="w-full h-full">
-                                <img
+                                <Image
                                     src={URL.createObjectURL(postPhotoFile)}
                                     alt="Post Image"
                                     className="w-full h-full object-cover rounded"
+                                    width={100}
+                                    height={100}
                                 />
                                 <button
                                     onClick={() => setPostPhotoFile(null)}

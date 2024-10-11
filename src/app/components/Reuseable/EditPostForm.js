@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+"use client";
 
+import React, { useState } from "react";
+import Image from "next/image";
 const EditPostForm = ({ postData, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
     ...postData,
@@ -140,12 +142,14 @@ const EditPostForm = ({ postData, onClose, onSubmit }) => {
               )}
               {formData.SourceImage && (
                 <div className="absolute inset-0">
-                  <img
+                  <Image
                     src={
                       formData.SourceImage instanceof File
                         ? URL.createObjectURL(formData.SourceImage)
                         : formData.SourceImage
                     }
+                    width={100}
+                    height={100}
                     alt="Source Image"
                     className="w-full h-full object-cover rounded"
                   />
@@ -180,12 +184,14 @@ const EditPostForm = ({ postData, onClose, onSubmit }) => {
               )}
               {formData.postPhoto && (
                 <div className="absolute inset-0">
-                  <img
+                  <Image
                     src={
                       formData.postPhoto instanceof File
                         ? URL.createObjectURL(formData.postPhoto)
                         : formData.postPhoto
                     }
+                    width={100}
+                    height={100}
                     alt="Post Photo"
                     className="w-full h-full object-cover rounded"
                   />
