@@ -14,6 +14,8 @@ import {
   deleteDoc,
   startAfter,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { formatDistanceToNowStrict, subDays } from "date-fns";
 import PostCard from "../components/Reuseable/PostCard";
@@ -34,6 +36,25 @@ const Editfeed = () => {
   const [editPostId, setEditPostId] = useState(null);
   const [editingPostData, setEditingPostData] = useState(null);
   const [hasMorePosts, setHasMorePosts] = useState(true); // Track if there are more posts
+
+  const [checkingAuth, setCheckingAuth] = useState(true); // New state to check if auth is loading
+  const [user, setUser] = useState(null);
+
+
+  const router = useRouter();
+   useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        fetchPosts();
+      } else {
+        router.push('/login');
+      }
+      setCheckingAuth(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     fetchPosts();
@@ -196,6 +217,13 @@ const Editfeed = () => {
   };
   const imageplaceholder = "/images/placeholder-image.jpg";
 
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-900 p-5">
       <h1 className="text-white text-2xl font-bold mb-6">Edit Posts</h1>
