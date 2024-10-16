@@ -53,6 +53,20 @@ body {
   width: 50% !important;
 }
 }
+/* Styling for calendar icon in Webkit browsers */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%); /* Inverts the default color to white */
+}
+
+/* For Firefox */
+input[type="datetime-local"]::-moz-calendar-picker-indicator {
+  filter: invert(100%);
+}
+/* For Microsoft Edge */
+input[type="datetime-local"]::-ms-clear,
+input[type="datetime-local"]::-ms-expand {
+  filter: invert(100%);
+}
 
 .custom-loader {
   margin: 0 auto;

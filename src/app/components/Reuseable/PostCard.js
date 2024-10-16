@@ -26,6 +26,7 @@ const PostCard = ({ category, image, ShareLink, title, description, likes, comme
     const getCategoryText = () => {
         return category === "Tweet" ? "Xweet" : category;
     };
+    const imageplaceholder = "/images/placeholder-image.jpg";
     return (
         <div className="bg-gray-800 text-white p-4 rounded-lg">
             {/* Post Image */}
@@ -33,7 +34,7 @@ const PostCard = ({ category, image, ShareLink, title, description, likes, comme
                 <div className="relative">
                     {image && (
                         <Image
-                            src={image}
+                            src={image || imageplaceholder}
                             alt={title}
                             width={800}
                             height={400}

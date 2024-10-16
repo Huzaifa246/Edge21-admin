@@ -194,6 +194,7 @@ const Editfeed = () => {
       fetchPosts(searchQuery, page - 1); // Fetch previous page posts
     }
   };
+  const imageplaceholder = "/images/placeholder-image.jpg";
 
   return (
     <div className="min-h-screen bg-gray-900 p-5">
@@ -218,11 +219,11 @@ const Editfeed = () => {
 
       {/* Posts List */}
       {!loading && latestPosts.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
           {latestPosts.map((post) => (
             <div key={post.id} className="bg-gray-800 p-4 rounded flex flex-col justify-between">
               <PostCard
-                image={post.postPhoto}
+                image={post.postPhoto || imageplaceholder}
                 title={post.postTitle}
                 description={post.postDescription}
                 category={post.postCategory}

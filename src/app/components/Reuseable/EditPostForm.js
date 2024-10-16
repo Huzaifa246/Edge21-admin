@@ -111,14 +111,13 @@ const EditPostForm = ({ postData, onClose, onSubmit }) => {
               className="w-full p-3 rounded bg-gray-900 text-white"
             />
 
-            {/* Content ID (Disabled) */}
             <label className="block text-white">Content ID</label>
             <input
               type="text"
               name="ContentID"
-              value={formData.ContentID}
-              disabled
-              className="w-full p-3 rounded bg-gray-900 text-white opacity-50 cursor-not-allowed"
+              value={formData?.ContentID}
+              onChange={handleInputChange}
+              className="w-full p-3 rounded bg-gray-900 text-white"
             />
 
             {/* Source Image Upload */}
@@ -155,7 +154,7 @@ const EditPostForm = ({ postData, onClose, onSubmit }) => {
                   />
                   <button
                     onClick={() => setFormData({ ...formData, SourceImage: null })}
-                    className="absolute top-2 right-2 text-white p-1 focus:outline-none"
+                    className="absolute top-2 right-2 text-white bg-red-600 rounded px-[10px] py-[1px] focus:outline-none"
                   >
                     &times;
                   </button>
@@ -197,7 +196,7 @@ const EditPostForm = ({ postData, onClose, onSubmit }) => {
                   />
                   <button
                     onClick={() => setFormData({ ...formData, postPhoto: null })}
-                    className="absolute top-2 right-2 text-white p-1 focus:outline-none"
+                    className="absolute top-2 right-2 text-white bg-red-600 rounded px-[10px] py-[1px] focus:outline-none"
                   >
                     &times;
                   </button>

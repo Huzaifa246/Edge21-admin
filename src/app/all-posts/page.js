@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { db } from '@/app/firebase/firebaseConfig';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 import { collection, getDocs, query, orderBy, where, limit, startAfter } from 'firebase/firestore';
 import PostCard from '../components/Reuseable/PostCard';
 import { formatDistanceToNowStrict, subHours } from 'date-fns';
@@ -16,6 +18,18 @@ const AllPosts = () => {
   const [page, setPage] = useState(1); 
   const [totalPages, setTotalPages] = useState(1); 
   const [hasMorePosts, setHasMorePosts] = useState(true); 
+  const router = useRouter();
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push('/login');
+      } else {
+        fetchPosts();
+      }
+    });
+  }, []);
 
   useEffect(() => {
     fetchPosts();
@@ -133,6 +147,7 @@ const AllPosts = () => {
     return pageButtons;
   };
 
+  const imageplaceholder = "/images/placeholder-image.jpg";
   return (
     <div className="min-h-screen bg-gray-900 p-5">
       <h1 className="text-white text-2xl font-bold mb-6">All Latest Posts</h1>
@@ -148,7 +163,7 @@ const AllPosts = () => {
               {latestPosts.map((post) => (
                 <PostCard
                   key={post.id}
-                  image={post.postPhoto}
+                  image={post.postPhoto || imageplaceholder}
                   title={post.SourceName}
                   description={post.postDescription}
                   likes={post.likes}

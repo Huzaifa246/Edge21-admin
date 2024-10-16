@@ -20,13 +20,13 @@ const PostForm = ({ postCategory, formTitle }) => {
         SourceDescription: "",
         postCategory: postCategory,
         ContentID: "",
-        timePublished: null,
-        SourceImage: null,
-        postPhoto: null
+        timePublished: "",
+        SourceImage: "",
+        postPhoto: ""
     });
-
-    const [sourceImageFile, setSourceImageFile] = useState(null);
-    const [postPhotoFile, setPostPhotoFile] = useState(null);
+    console.log(formData, "formData")
+    const [sourceImageFile, setSourceImageFile] = useState('');
+    const [postPhotoFile, setPostPhotoFile] = useState('');
     const [loading, setLoading] = useState(false);
 
     // Check if user is authenticated
@@ -91,8 +91,8 @@ const PostForm = ({ postCategory, formTitle }) => {
                 SourceDescription: formData.SourceDescription,
                 ContentID: formData.ContentID,
                 timePublished: formData.timePublished ? Timestamp.fromDate(new Date(formData.timePublished)) : null,
-                SourceImage: sourceImageUrl,  
-                postPhoto: postPhotoUrl,      
+                SourceImage: sourceImageUrl || null,  
+                postPhoto: postPhotoUrl || null,      
                 postOwner: user.uid,
                 postCategory: formData.postCategory,
             };
@@ -113,9 +113,9 @@ const PostForm = ({ postCategory, formTitle }) => {
                 SourceName: "",
                 SourceDescription: "",
                 ContentID: "",
-                timePublished: null,
-                SourceImage: null,
-                postPhoto: null
+                timePublished: "",
+                SourceImage: "",
+                postPhoto: ""
             });
             setSourceImageFile(null);
             setPostPhotoFile(null);
@@ -131,31 +131,55 @@ const PostForm = ({ postCategory, formTitle }) => {
         <div className="min-h-screen bg-gray-900 p-5">
             <h1 className="text-white text-2xl font-bold mb-6">{formTitle}</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
+                    <input
+                        type="text"
+                        name="ContentID"
+                        placeholder="Content ID"
+                        value={formData.ContentID}
+                        onChange={handleInputChange}
+                        className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="sourceLink"
+                        placeholder="Source Link"
+                        value={formData.sourceLink}
+                        onChange={handleInputChange}
+                        className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
+                    />
+                </div>
                 <input
                     type="text"
                     name="postTitle"
-                    placeholder={`${postCategory} Title`}
+                    placeholder={`${postCategory} Heading`}
                     value={formData.postTitle}
                     onChange={handleInputChange}
+         required
                     className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
                 />
 
                 {/* Description */}
                 <textarea
                     name="postDescription"
-                    placeholder={`${postCategory} Description`}
+                    placeholder={`${postCategory} Summary`}
                     value={formData.postDescription}
                     onChange={handleInputChange}
                     className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
                     rows={4}
+                    required
+                    onInput={(e) => {
+                        e.target.style.height = "auto";
+                        e.target.style.height = `${e.target.scrollHeight}px`;
+                    }}
                 />
-
                 <div className="grid grid-cols-3 gap-4">
                     <input
                         type="text"
-                        name="rating"
-                        placeholder="Rating"
-                        value={formData.rating}
+                        name="SourceName"
+                        placeholder="Source Name"
+                        value={formData.SourceName}
                         onChange={handleInputChange}
                         className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
                     />
@@ -179,23 +203,7 @@ const PostForm = ({ postCategory, formTitle }) => {
                     />
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
-                    <input
-                        type="text"
-                        name="sourceLink"
-                        placeholder="Source Link"
-                        value={formData.sourceLink}
-                        onChange={handleInputChange}
-                        className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
-                    />
-                    <input
-                        type="text"
-                        name="SourceName"
-                        placeholder="Source Name"
-                        value={formData.SourceName}
-                        onChange={handleInputChange}
-                        className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
-                    />
+                <div className="grid grid-cols-1 relative gap-4">
                     <div className="flex items-center justify-center bg-gray-800 rounded p-3">
                         <label
                             htmlFor="sourceImage"
@@ -216,36 +224,44 @@ const PostForm = ({ postCategory, formTitle }) => {
                         {sourceImageFile && (
                             <div className="ml-3">
                                 <Image
-                                    src={URL.createObjectURL(sourceImageFile)}
+                                    // src={URL.createObjectURL(sourceImageFile)}
+                                    src={sourceImageFile ? URL.createObjectURL(sourceImageFile) : ""}
                                     alt="Source Image"
                                     className="w-12 h-12 object-cover rounded"
                                     width={100}
                                     height={100}
                                 />
+                                <button
+                                    onClick={() => setSourceImageFile(null)}
+                                    className="absolute top-2 right-2 red-color p-1"
+                                >
+                                    &times;
+                                </button>
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                {/* <div className="grid grid-cols-2 gap-4">
                     <input
                         type="text"
                         name="SourceDescription"
                         placeholder="Source Description"
                         value={formData.SourceDescription}
                         onChange={handleInputChange}
+                        disabled
                         className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
                     />
-                    <input
+                     <input
                         type="text"
-                        name="ContentID"
-                        placeholder="Content ID"
-                        value={formData.ContentID}
+                        name="rating"
+                        placeholder="Rating"
+                        value={formData.rating}
                         onChange={handleInputChange}
+                        disabled
                         className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
-                        required
                     />
-                </div>
+                </div> */}
 
                 <div className="w-full h-40 rounded border-2 border-[#31363f] relative mt-4 p-4">
                     <div className="w-[30%] mob-w-50 h-full bg-transparent rounded flex justify-center items-center">
@@ -255,7 +271,7 @@ const PostForm = ({ postCategory, formTitle }) => {
                                 className="flex flex-col items-center cursor-pointer text-gray-500"
                             >
                                  <MdLinkedCamera size={60} className="text-white"/>
-                                 <span className="mt-2 text-white text-xs">Add Source Image</span>
+                                 <span className="mt-2 text-white text-xs">Add Feature Image</span>
                                 <input
                                     type="file"
                                     id="postPhoto"
@@ -270,7 +286,8 @@ const PostForm = ({ postCategory, formTitle }) => {
                         {postPhotoFile && (
                             <div className="w-full h-full">
                                 <Image
-                                    src={URL.createObjectURL(postPhotoFile)}
+                                    // src={URL.createObjectURL(postPhotoFile)}
+                                    src={postPhotoFile ? URL.createObjectURL(postPhotoFile) : ""}
                                     alt="Post Image"
                                     className="w-full h-full object-cover rounded"
                                     width={100}
