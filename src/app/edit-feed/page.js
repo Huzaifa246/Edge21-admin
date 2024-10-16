@@ -225,7 +225,7 @@ const Editfeed = () => {
     );
   }
   return (
-    <div className="min-h-screen bg-gray-900 p-5">
+    <div className="min-h-screen bg-gray-900 p-5 w-[50%] mx-auto">
       <h1 className="text-white text-2xl font-bold mb-6">Edit Posts</h1>
 
       {/* Search Bar */}
