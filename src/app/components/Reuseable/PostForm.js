@@ -174,7 +174,7 @@ const PostForm = ({ postCategory, formTitle }) => {
                         e.target.style.height = `${e.target.scrollHeight}px`;
                     }}
                 />
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-4">
                     <input
                         type="text"
                         name="SourceName"
@@ -203,13 +203,14 @@ const PostForm = ({ postCategory, formTitle }) => {
                     />
                 </div>
 
-                <div className="grid grid-cols-1 relative gap-4">
-                    <div className="flex items-center justify-center bg-gray-800 rounded p-3">
+                <div className="w-full h-28 rounded border-2 border-[#31363f] relative mt-4 p-4">
+                    <div className="w-[100%] mob-w-[100%] h-full bg-transparent rounded flex justify-center items-center">
+                    {!sourceImageFile && (
                         <label
                             htmlFor="sourceImage"
-                            className="flex flex-col items-center cursor-pointer text-gray-500"
+                            className="flex flex-col items-center cursor-pointer text-gray-500 w-full"
                         >
-                            <MdLinkedCamera size={20} className="text-white"/>
+                            <MdLinkedCamera size={40} className="text-white"/>
                             <span className="mt-2 text-white text-xs">Add Source Image</span>
                             <input
                                 type="file"
@@ -220,20 +221,20 @@ const PostForm = ({ postCategory, formTitle }) => {
                                 className="hidden"
                             />
                         </label>
-
+                        )}
                         {sourceImageFile && (
                             <div className="ml-3">
                                 <Image
                                     // src={URL.createObjectURL(sourceImageFile)}
                                     src={sourceImageFile ? URL.createObjectURL(sourceImageFile) : ""}
                                     alt="Source Image"
-                                    className="w-12 h-12 object-cover rounded"
+                                    className="w-full h-12 object-cover rounded"
                                     width={100}
                                     height={100}
                                 />
                                 <button
                                     onClick={() => setSourceImageFile(null)}
-                                    className="absolute top-2 right-2 red-color p-1"
+                                    className="absolute top-2 right-2 bg-red-500 text-white px-[7px] py-[1px] rounded"
                                 >
                                     &times;
                                 </button>
@@ -242,33 +243,12 @@ const PostForm = ({ postCategory, formTitle }) => {
                     </div>
                 </div>
 
-                {/* <div className="grid grid-cols-2 gap-4">
-                    <input
-                        type="text"
-                        name="SourceDescription"
-                        placeholder="Source Description"
-                        value={formData.SourceDescription}
-                        onChange={handleInputChange}
-                        disabled
-                        className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
-                    />
-                     <input
-                        type="text"
-                        name="rating"
-                        placeholder="Rating"
-                        value={formData.rating}
-                        onChange={handleInputChange}
-                        disabled
-                        className="w-full p-3 rounded bg-transparent text-white focus:placeholder-white placeholder-white border-2 border-[#31363f] focus:border-yellow-500 focus:outline-none"
-                    />
-                </div> */}
-
-                <div className="w-full h-40 rounded border-2 border-[#31363f] relative mt-4 p-4">
-                    <div className="w-[30%] mob-w-50 h-full bg-transparent rounded flex justify-center items-center">
+                <div className="w-full h-56 rounded border-2 border-[#31363f] relative mt-4 p-4">
+                    <div className="w-[100%] mob-w-[100%] h-full bg-transparent rounded flex justify-center items-center">
                         {!postPhotoFile && (
                             <label
                                 htmlFor="postPhoto"
-                                className="flex flex-col items-center cursor-pointer text-gray-500"
+                                className="flex flex-col items-center cursor-pointer text-gray-500 w-full"
                             >
                                  <MdLinkedCamera size={60} className="text-white"/>
                                  <span className="mt-2 text-white text-xs">Add Feature Image</span>
@@ -289,13 +269,13 @@ const PostForm = ({ postCategory, formTitle }) => {
                                     // src={URL.createObjectURL(postPhotoFile)}
                                     src={postPhotoFile ? URL.createObjectURL(postPhotoFile) : ""}
                                     alt="Post Image"
-                                    className="w-full h-full object-cover rounded"
+                                    className="w-full h-full object-contain rounded"
                                     width={100}
                                     height={100}
                                 />
                                 <button
                                     onClick={() => setPostPhotoFile(null)}
-                                    className="absolute top-2 right-2 red-color p-1"
+                                    className="absolute top-2 right-2 bg-red-500 text-white px-[7px] py-[1px] rounded"
                                 >
                                     &times;
                                 </button>

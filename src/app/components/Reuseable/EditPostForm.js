@@ -120,6 +120,19 @@ const EditPostForm = ({ postData, onClose, onSubmit }) => {
               className="w-full p-3 rounded bg-gray-900 text-white"
             />
 
+            <label className="block text-white">Post Category</label>
+            <select
+              name="postCategory"
+              value={formData.postCategory}
+              onChange={handleInputChange}
+              className="w-full p-3 rounded bg-gray-900 text-white"
+            >
+              <option value="Article">Article</option>
+              <option value="Tweet">Tweet</option>
+              <option value="Video">Video</option>
+              <option value="Charts">Charts</option>
+            </select>
+
             {/* Source Image Upload */}
             <label className="block text-white">Source Image</label>
             <div className="w-full h-40 rounded relative bg-gray-900 flex justify-center items-center">
